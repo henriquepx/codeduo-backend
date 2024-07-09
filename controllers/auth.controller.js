@@ -34,6 +34,6 @@ export const Signin = async (req, res, next) => {
     const { password: hashedPassword, ...rest } = validUser._doc;
     res.cookie('acess_token', token, { httpOnly: true, }).status(200).json(rest);
   } catch (error) {
-    res.status(500).json({ message: 'Erro no servidor' });
+    next(error);
   }
 };
