@@ -1,7 +1,7 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import connectDB from './db/db.js';
@@ -13,21 +13,16 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 
-const corsOptions = {
-  origin: 'https://codeduo.vercel.app/',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  allowedHeaders: 'Content-Type, Authorization',
-};
+app.use(cors({
+  origin: ['https://codeduo.vercel.app'],
+  optionsSuccessStatus: 204,
+  credentials: true,
+  allowedMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+}));
 
-app.use(cors(corsOptions));
+app.use(bodyParser.json());
 connectDB();
-
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('Connected to MongoDB'))
-.catch((error) => console.error('Failed to connect to MongoDB:', error));
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
