@@ -13,13 +13,15 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 
-app.use(cors({
-  origin: ['https://codeduo.vercel.app'],
+const corsOptions = {
+  origin: ['http://localhost:5173', 'https://codeduo.vercel.app'],
   optionsSuccessStatus: 204,
   credentials: true,
   allowedMethods: ['GET', 'POST', 'PUT', 'DELETE'],
   methods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
-}));
+};
+
+app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 connectDB();
