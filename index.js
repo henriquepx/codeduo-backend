@@ -8,15 +8,18 @@ import connectDB from './db/db.js';
 
 dotenv.config({ path: './.env' });
 
-console.log('MONGODB_URI:', process.env.MONGODB_URI);
-console.log('PORT:', process.env.PORT);
-console.log('JWT_SECRET:', process.env.JWT_SECRET);
-
 const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+  origin: 'https://codeduo.vercel.app/',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: 'Content-Type, Authorization',
+};
+
+app.use(cors(corsOptions));
 connectDB();
 
 mongoose.connect(process.env.MONGODB_URI, {
