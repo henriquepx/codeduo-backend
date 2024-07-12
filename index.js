@@ -14,7 +14,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 
 const corsOptions = {
-  origin: ['http://localhost:5173', 'https://codeduo.vercel.app'],
+  origin: '*',
   optionsSuccessStatus: 204,
   credentials: true,
   allowedMethods: ['GET', 'POST', 'PUT', 'DELETE'],
