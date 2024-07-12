@@ -21,7 +21,6 @@ export const Signup = async (req, res) => {
     res.status(500).json({ message: 'Erro no servidor' });
   }
 };
-
 export const Signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {

@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import connectDB from './db/db.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config({ path: './.env' });
 
@@ -22,8 +23,8 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.use(bodyParser.json());
+app.use(cookieParser());
 connectDB();
 
 app.listen(PORT, () => {
