@@ -15,7 +15,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'https://codeduo-backend.onrender.com',
+  origin: '*',
   optionsSuccessStatus: 204,
   credentials: true,
   allowedMethods: ['GET', 'POST', 'PUT', 'DELETE'],
