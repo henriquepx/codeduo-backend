@@ -17,7 +17,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 
 const corsOptions = {
-  origin: '*',
+  origin: 'https://codeduo.vercel.app',
   optionsSuccessStatus: 204,
   credentials: true,
   allowedMethods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -30,8 +30,9 @@ app.use(bodyParser.json());
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin: 'https://codeduo.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
   },
 });
 
