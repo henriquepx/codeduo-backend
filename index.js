@@ -36,14 +36,17 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
-  console.log('A user connected');
+  socket.on('joinRoom', (roomId) => {
+    socket.join(roomId);
+    console.log(`User joined room ${roomId}`);
 
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
-  });
+    socket.on('codeChange', (newCode) => {
+      io.to(roomId).emit('codeChange', newCode); 
+    });
 
-  socket.on('codeChange', (code) => {
-    socket.broadcast.emit('codeChange', code);
+    socket.on('disconnect', () => {
+      console.log('User disconnected');
+    });
   });
 });
 
