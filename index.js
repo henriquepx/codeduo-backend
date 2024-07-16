@@ -12,26 +12,26 @@ import cookieParser from 'cookie-parser';
 dotenv.config({ path: './.env' });
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 const corsOptions = {
   origin: 'https://codeduo.vercel.app',
   optionsSuccessStatus: 204,
   credentials: true,
-  allowedMethods: ['GET', 'POST', 'PUT', 'DELETE'],
-  methods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
 };
 
 app.use(cors(corsOptions));
-app.use(bodyParser.json());
 
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: 'https://codeduo.vercel.app',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     credentials: true,
   },
 });
@@ -56,8 +56,6 @@ connectDB();
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-app.use(cookieParser());
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
