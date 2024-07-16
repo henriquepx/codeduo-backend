@@ -1,6 +1,7 @@
 import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
+import compression from 'compression';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import bodyParser from 'body-parser';
@@ -17,6 +18,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(compression());
 
 const corsOptions = {
   origin: 'https://codeduo.vercel.app',
