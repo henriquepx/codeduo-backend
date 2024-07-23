@@ -15,10 +15,12 @@ dotenv.config({ path: './.env' });
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(express.json());
+connectDB();
+
+app.use(compression());
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(compression());
+app.use(express.json());
 
 const corsOptions = {
   origin: 'https://codeduo.vercel.app',
@@ -28,6 +30,19 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
+
+app.use((error, req, res, next) => {
+  const statusCode = error.statusCode || 500; 
+  const message = error.message || 'Internal Server Error';
+  return res.status(statusCode).json({
+    success: false, 
+    message,
+    statusCode,
+  });
+});
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -53,21 +68,6 @@ io.on('connection', (socket) => {
   });
 });
 
-connectDB();
-
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-});
-
-app.use('/api/user', userRoutes);
-app.use('/api/auth', authRoutes);
-
-app.use((error, req, res, next) => {
-  const statusCode = error.statusCode || 500; 
-  const message = error.message || 'Internal Server Error';
-  return res.status(statusCode).json({
-    success: false, 
-    message,
-    statusCode,
-  });
 });
