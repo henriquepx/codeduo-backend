@@ -19,7 +19,6 @@ connectDB();
 
 app.use(compression());
 app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(express.json());
 
 const corsOptions = {
@@ -30,6 +29,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(cookieParser());
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
