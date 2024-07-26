@@ -31,6 +31,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 
@@ -66,8 +70,4 @@ io.on('connection', (socket) => {
       console.log('User disconnected');
     });
   });
-});
-
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
 });
