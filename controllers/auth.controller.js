@@ -25,11 +25,16 @@ export const Signin = async (req, res, next) => {
     if (!validUser) return next(errorHandler(404, 'Usuário não encontrado'));
     const validPassword = bcrypt.compareSync(password, validUser.password);
     if (!validPassword) return next(errorHandler(401, 'Senha inválida'));
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
     const { password: hashedPassword, ...rest } = validUser._doc;
     const expiryDate = new Date(Date.now() + 3600000);
     res
-      .cookie('access_token', token, { httpOnly: true, expires: expiryDate })
+      .cookie('access_token', token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
+        expires: expiryDate
+      })
       .status(200)
       .json(rest);
   } catch (error) {
@@ -62,14 +67,13 @@ export const Google = async (req, res, next) => {
       await newUser.save();
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
       const { password: hashedPassword2, ...rest } = newUser._doc;
-      const expiryDate = new Date(Date.now() + 3600000); // 1 hour
-      res
-        .cookie('access_token', token, {
-          httpOnly: true,
-          expires: expiryDate,
-        })
-        .status(200)
-        .json(rest);
+      const expiryDate = new Date(Date.now() + 3600000);
+      res.cookie('access_token', token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
+        expires: expiryDate
+      }).status(200).json(rest);
     }
   } catch (error) {
     next(error);
@@ -77,5 +81,11 @@ export const Google = async (req, res, next) => {
 }
 
 export const Signout = (req, res) => {
-  res.clearCookie('access_token').status(200).json('Signout success!');
+  res.clearCookie('access_token', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'None'
+    })
+    .status(200)
+    .json('Signout success!');
 };
