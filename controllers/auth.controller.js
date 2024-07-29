@@ -37,6 +37,7 @@ export const Signin = async (req, res, next) => {
       })
       .status(200)
       .json(rest);
+      console.log('Token set in cookie:', token);
   } catch (error) {
     next(error);
   }
@@ -74,6 +75,7 @@ export const Google = async (req, res, next) => {
         sameSite: 'None',
         expires: expiryDate
       }).status(200).json(rest);
+      console.log('Token set in cookie:', token);
     }
   } catch (error) {
     next(error);
