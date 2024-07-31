@@ -1,12 +1,12 @@
 <table align="right">
   <tr>
     <td>
-      <a href="readme-pt.md">🇧🇷 Português</a>
+      <a href="README.md">🇺🇸 English</a>
     </td>
   </tr>
   <tr>
     <td>
-      <a href="README.md">🇺🇸 English</a>
+      <a href="readme-pt.md">🇧🇷 Português</a>
     </td>
   </tr>
 </table>
@@ -20,7 +20,7 @@
 1. [Descrição do Projeto](#descrição-do-projeto)
 2. [Funcionalidades](#funcionalidades)
 3. [Tecnologias Utilizadas](#tecnologias-utilizadas)
-4. [Instalação e Execução](#instalação-e-execução)
+4. [Instalação e Configuração](#instalação-e-configuração)
 5. [Estrutura do Projeto](#estrutura-do-projeto)
 6. [Contribuição](#contribuição)
 7. [Licença](#licença)
@@ -28,7 +28,7 @@
 
 ## Descrição do Projeto
 
-O back-end do **CodeDuo** fornece a infraestrutura necessária para a edição de código em tempo real, autenticação de usuários, gerenciamento de salas e comunicação em tempo real entre clientes.
+O **CodeDuo** backend fornece a infraestrutura necessária para edição de código em tempo real, autenticação de usuários, gerenciamento de salas e comunicação em tempo real entre clientes.
 
 ## Funcionalidades
 
@@ -40,11 +40,27 @@ O back-end do **CodeDuo** fornece a infraestrutura necessária para a edição d
 
 ## Tecnologias Utilizadas
 
-- **Servidor**: Node.js, Express
-- **Banco de Dados**: MongoDB
-- **Autenticação**: JWT, OAuth
-- **Comunicação em Tempo Real**: Socket.io
-- **Testes**: Jest
+### Linguagens e Frameworks
+
+- **Node.js**: Ambiente de execução JavaScript. [Documentação](https://nodejs.org/en/docs/)
+- **Express**: Framework web para Node.js. [Documentação](https://expressjs.com/)
+- **MongoDB**: Banco de dados NoSQL. [Documentação](https://www.mongodb.com/docs/manual/)
+- **JWT**: Biblioteca para criação e verificação de tokens JWT. [Documentação](https://github.com/auth0/node-jsonwebtoken)
+- **Socket.io**: Biblioteca para comunicação em tempo real via WebSockets. [Documentação](https://socket.io/docs/v4/client-api/)
+
+### Dependências
+
+- **bcrypt**: Biblioteca para hash de senhas. [Documentação](https://www.npmjs.com/package/bcrypt)
+- **bcryptjs**: Alternativa para bcrypt. [Documentação](https://www.npmjs.com/package/bcryptjs)
+- **body-parser**: Middleware para parsing de corpos de requisições. [Documentação](https://www.npmjs.com/package/body-parser)
+- **compression**: Middleware para compressão de resposta HTTP. [Documentação](https://www.npmjs.com/package/compression)
+- **cookie-parser**: Middleware para parsing de cookies. [Documentação](https://www.npmjs.com/package/cookie-parser)
+- **cors**: Middleware para controle de acesso entre origens. [Documentação](https://www.npmjs.com/package/cors)
+- **dotenv**: Carregamento de variáveis de ambiente a partir de um arquivo `.env`. [Documentação](https://www.npmjs.com/package/dotenv)
+- **nodemon**: Ferramenta para reinício automático do servidor durante o desenvolvimento. [Documentação](https://nodemon.io/)
+- **mongoose**: Biblioteca para modelagem de dados no MongoDB. [Documentação](https://mongoosejs.com/docs/)
+
+## Instalação e Configuração
 
 ### Clonando o Repositório
 
@@ -78,14 +94,6 @@ npm start
 yarn start
 ```
 
-### Executando os Testes
-
-```bash
-npm run test
-# ou
-yarn test
-```
-
 ## Estrutura do Projeto
 
 ```plaintext
@@ -113,6 +121,6 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 
 ## Contato
 
-Henrique - [email@example.com](mailto:email@example.com)
-
-LinkedIn: [linkedin.com/in/henrique](https://linkedin.com/in/henrique)
+- LinkedIn: [Henrique Pinheiro](https://www.linkedin.com/in/henriquepinheiroxavier/)
+- GitHub: [henriquepx](https://github.com/henriquepx)
+- Email: [henriquepinheiroxavier@gmail.com](mailto:henriquepinheiroxavier@gmail.com)
