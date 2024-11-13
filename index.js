@@ -57,6 +57,7 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   socket.on('joinRoom', (roomId) => {
     socket.join(roomId);
+
     const users = getUsersInRoom(roomId);
     io.to(roomId).emit('updateUserList', users);
     console.log(`User joined room ${roomId}`);
@@ -66,13 +67,13 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-      const roomId = getRoomIdForSocket(socket);
       const users = getUsersInRoom(roomId);
       io.to(roomId).emit('updateUserList', users);
       console.log('User disconnected');
     });
   });
 });
+
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
