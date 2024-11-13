@@ -54,25 +54,45 @@ const io = new Server(server, {
   },
 });
 
+const usersInRooms = [];
+
+function getUsersInRoom(roomId) {
+  return usersInRooms.filter(user => user.roomId === roomId);
+}
+
+function addUserToRoom(userId, roomId) {
+  usersInRooms.push({ userId, roomId });
+}
+
+function removeUserFromRoom(userId, roomId) {
+  const index = usersInRooms.findIndex(user => user.userId === userId && user.roomId === roomId);
+  if (index !== -1) usersInRooms.splice(index, 1);
+}
+
 io.on('connection', (socket) => {
   socket.on('joinRoom', (roomId) => {
+    const userId = socket.id; 
+
     socket.join(roomId);
+    addUserToRoom(userId, roomId);
 
     const users = getUsersInRoom(roomId);
     io.to(roomId).emit('updateUserList', users);
-    console.log(`User joined room ${roomId}`);
+    console.log(`User ${userId} joined room ${roomId}`);
 
     socket.on('codeChange', (newCode) => {
       io.to(roomId).emit('codeChange', newCode); 
     });
 
     socket.on('disconnect', () => {
+      removeUserFromRoom(userId, roomId);
       const users = getUsersInRoom(roomId);
       io.to(roomId).emit('updateUserList', users);
-      console.log('User disconnected');
+      console.log(`User ${userId} disconnected from room ${roomId}`);
     });
   });
 });
+
 
 
 server.listen(PORT, () => {
