@@ -87,7 +87,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
       removeUserFromRoom(userId, roomId);
       const users = getUsersInRoom(roomId);
-      io.to(roomId).emit('updateUserList', users);
+      io.to(roomId).emit('updateUserList', users.map(user => user.userId));
       console.log(`User ${userId} disconnected from room ${roomId}`);
     });
   });
